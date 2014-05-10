@@ -8,9 +8,6 @@
 
 from math import sqrt
 
-def give_me_possible_primes(n) :
-    return (6*n+1, 6*n-1)
-
 def eliminate_factor(n, m) :
     nn = n
     while (n % m == 0) :
@@ -18,35 +15,33 @@ def eliminate_factor(n, m) :
     return (n, not (nn == n))
 
 def p3b(n):
-    factors = []
+    last_factor = 1
 
     n, factor_p = eliminate_factor(n, 2)
-    if factor_p : factors.append(2)
+    if factor_p : last_factor = 2
 
     n, factor_p = eliminate_factor(n, 3)
-    if factor_p : factors.append(3)
+    if factor_p : last_factor = 3
 
-    limit = int(sqrt(n))
     i = 1
     while True:
-        upper, lower = give_me_possible_primes(i)
-
+        lower = 6*i -1
         (n, factor_p) = eliminate_factor(n, lower)
-        if factor_p : factors.append(lower)
-        if lower > int(sqrt(n)) : break
+        if factor_p : last_factor = lower
 
+        upper = 6*i + 1
         (n, factor_p) = eliminate_factor(n, upper)
-        if factor_p : factors.append(upper)
-        if upper > int(sqrt(n)) : break
+        if factor_p : last_factor = upper
+
+        if last_factor > int(sqrt(n)) : break
 
         if n == 1 : break
         i += 1
 
-    if n > 1 :
-        factors.append(n)
-
-    return max(factors), factors, i
-        
+    if n == 1 :
+        return last_factor, i
+    else :
+        return n, i
 
 
 if __name__ == "__main__" :
