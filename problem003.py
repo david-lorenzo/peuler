@@ -26,18 +26,24 @@ def p3b(n):
     n, factor_p = eliminate_factor(n, 3)
     if factor_p : factors.append(3)
 
-    m = int(sqrt(n)/6) + 1
-
-    for i in range(1,m+1) :
+    limit = int(sqrt(n))
+    i = 1
+    while True:
         upper, lower = give_me_possible_primes(i)
 
         (n, factor_p) = eliminate_factor(n, lower)
         if factor_p : factors.append(lower)
+        if lower > int(sqrt(n)) : break
 
         (n, factor_p) = eliminate_factor(n, upper)
         if factor_p : factors.append(upper)
+        if upper > int(sqrt(n)) : break
 
         if n == 1 : break
+        i += 1
+
+    if n > 1 :
+        factors.append(n)
 
     return max(factors), factors, i
         
