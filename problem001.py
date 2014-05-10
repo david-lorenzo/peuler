@@ -16,6 +16,12 @@ def p1(n) :
 
     return result
 
+def euler(n) :
+    if (n%2 == 0) :
+        return (n/2)*(n+1)
+    else :
+        return (n + ((n-1)/2)*n)
+
 def p1_better(n) :
     # better version, better performance O(1)
     n -=1
@@ -26,25 +32,7 @@ def p1_better(n) :
     # Euler told us that sum for n=1,100 is (100/2)*(100+1)
     # we do the same with each series of multiples
 
-    m = int(n/3)
-    if (m % 2 == 0) :
-        multi3 = 3*(m/2)*(m+1)
-    else :
-        multi3 = 3*(m + ((m-1)/2)*m)
-
-    m = int(n/5)
-    if (m % 2 == 0) :
-        multi5 = 5*(m/2)*(m+1)
-    else :
-        multi5 = 5*(m + ((m-1)/2)*m)
-
-    m = int(n/15)
-    if (m % 2 == 0) :
-        multi15 = 15*(m/2)*(m+1)
-    else :
-        multi15 = 15*(m + ((m-1)/2)*m)
-
-    return (multi3 + multi5 - multi15)
+    return 3*euler(int(n/3)) + 5*euler(int(n/5)) - 15*euler(int(n/15))
 
 if __name__ == "__main__" :
     print p1(1000)
