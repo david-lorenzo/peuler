@@ -11,15 +11,6 @@ from math import sqrt
 def give_me_possible_primes(n) :
     return (6*n+1, 6*n-1)
 
-def add_if_prime(n, lp):
-    bound = int(sqrt(n))
-    for i in range(0, len(lp)) :
-        if lp[i] > bound :
-            lp.append(n)
-            return True
-        if n % lp[i] == 0 : return False
-    return False
-
 def eliminate_factor(n, m) :
     nn = n
     while (n % m == 0) :
@@ -27,7 +18,6 @@ def eliminate_factor(n, m) :
     return (n, not (nn == n))
 
 def p3b(n):
-    primes = [2, 3]
     factors = []
 
     n, factor_p = eliminate_factor(n, 2)
@@ -41,17 +31,15 @@ def p3b(n):
     for i in range(1,m+1) :
         upper, lower = give_me_possible_primes(i)
 
-        if (add_if_prime(lower, primes)) :
-            (n, factor_p) = eliminate_factor(n, lower)
-            if factor_p : factors.append(lower)
+        (n, factor_p) = eliminate_factor(n, lower)
+        if factor_p : factors.append(lower)
 
-        if (add_if_prime(upper, primes)) :
-            (n, factor_p) = eliminate_factor(n, upper)
-            if factor_p : factors.append(upper)
+        (n, factor_p) = eliminate_factor(n, upper)
+        if factor_p : factors.append(upper)
 
         if n == 1 : break
 
-    return max(factors), factors, len(primes), i
+    return max(factors), factors, i
         
 
 
