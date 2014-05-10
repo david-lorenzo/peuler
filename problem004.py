@@ -38,7 +38,7 @@ def divisible_p(n) :
     global iterations
     for i in range(999, int(sqrt(n))-1,-1) :
         iterations +=1
-        if (n % i == 0) : return True, i, n/i
+        if (n % i == 0 and int(n/(i*1000)) == 0) : return True, i, n/i
     return False, None, None
 
 def p4():
@@ -48,7 +48,7 @@ def p4():
     n = p.next()
     while n :
         test, d1, d2 = divisible_p(n)
-        if test and (int(d2/1000) == 0): return n, d1, d2, d1*d2, iterations
+        if test : return n, d1, d2, d1*d2, iterations
         n = p.next()
     return None, None, None, None
 
